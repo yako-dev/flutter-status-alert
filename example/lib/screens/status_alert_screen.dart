@@ -24,10 +24,13 @@ class StatusAlertScreen extends StatelessWidget {
               onPressed: () {
                 StatusAlert.show(
                   context,
-                  duration: Duration(milliseconds: 14000),
-                  title: 'Loved',
-                  subtitle: 'We\'ll recommend more like this For You.',
-                  configuration: IconConfiguration(icon: Icons.favorite_border),
+                  duration: Duration(seconds: 2),
+                  title: 'Subscribed',
+                  padding: EdgeInsets.zero,
+//                  subtitle: 'We\'ll recommend more like this For You.',
+//                  configuration: IconConfiguration(icon: Icons.favorite_border),
+                  configuration: FlareConfiguration('assets/check_option.flr',
+                      animation: 'Untitled', margin: EdgeInsets.all(10)),
                 );
               },
             ),
