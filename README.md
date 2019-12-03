@@ -1,14 +1,36 @@
-# status_alert
+# Status Alert for Flutter
 
-A new Flutter package.
+[![pub package](https://img.shields.io/badge/pub-0.1.0-blueviolet.svg)](https://pub.dev/packages/status_alert)
 
-## Getting Started
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yako-dev/flutter-status-alert/master/assets/status_alert_logo.png" height="400px">
+</p>
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Installing:
+In your pubspec.yaml
+```yaml
+dependencies:
+  status_alert: ^0.1.0
+```
+```dart
+import 'package:status_alert/status_alert.dart';
+```
+
+
+## Basic Usage:
+```dart
+    StatusAlert.show(
+      context,
+      duration: Duration(seconds: 2),
+      title: 'Title',
+      subtitle: 'Subtitle',
+      configuration: IconConfiguration(icon: Icons.done),
+    )
+```
+<br>
+<br>
+
+
+## License
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details
