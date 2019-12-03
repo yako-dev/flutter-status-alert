@@ -1,6 +1,6 @@
 name: status_alert
 description: A new Flutter package.
-version: 0.0.1
+version: 0.1.0
 author: yako.io <yako@yako.io>
 homepage: https://github.com/yako-dev/flutter-status-alert
 
@@ -11,11 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   flare_flutter: ^1.7.3
-  pedantic: ^1.8.0+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pedantic: ^1.8.0+1
 
 flutter:
   fonts:

@@ -22,15 +22,21 @@ class StatusAlertScreen extends StatelessWidget {
             trailing: IconButton(
               icon: Icon(Icons.favorite_border),
               onPressed: () {
+//                StatusAlert.show(
+//                  context,
+//                  duration: Duration(seconds: 2),
+//                  title: 'Subscribed',
+//                  padding: EdgeInsets.zero,
+//                  configuration: FlareConfiguration('assets/check_option.flr',
+//                      animation: 'Untitled', margin: EdgeInsets.all(10)),
+//                );
+
                 StatusAlert.show(
                   context,
                   duration: Duration(seconds: 2),
-                  title: 'Subscribed',
-                  padding: EdgeInsets.zero,
-//                  subtitle: 'We\'ll recommend more like this For You.',
-//                  configuration: IconConfiguration(icon: Icons.favorite_border),
-                  configuration: FlareConfiguration('assets/check_option.flr',
-                      animation: 'Untitled', margin: EdgeInsets.all(10)),
+                  title: 'Loved',
+                  subtitle: 'We\'ll recommend more like this For You.',
+                  configuration: IconConfiguration(icon: Icons.favorite_border),
                 );
               },
             ),
