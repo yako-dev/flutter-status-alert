@@ -217,7 +217,7 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
       }
     }
     return Container(
-      width: screenWidth * 0.7,
+      width: screenWidth * 0.72,
       child: AspectRatio(
         aspectRatio: 1.0,
         child: Container(

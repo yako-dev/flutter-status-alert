@@ -14,13 +14,11 @@ class StatusAlertScreen extends StatelessWidget {
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-                'https://www.legalzoom.com'
-                '/sites/legalzoom.com/files/images/uploaded/'
-                'xhow_to_copyright_a_song_1.jpg.pagespeed.ic.2yMm8SpPm5.jpg',
+                'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Ones_and_Zeros_Young_Guns.jpg/220px-Ones_and_Zeros_Young_Guns.jpg',
               ),
             ),
-            title: Text('Some song'),
-            subtitle: Text('Some Artist'),
+            title: Text('Ones and Zeros'),
+            subtitle: Text('Young Guns'),
             trailing: IconButton(
               icon: Icon(Icons.favorite_border),
               onPressed: () {
