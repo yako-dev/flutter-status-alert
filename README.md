@@ -31,7 +31,7 @@ import 'package:status_alert/status_alert.dart';
 <br>
 <br>
 
-| <img src="https://raw.githubusercontent.com/yako-dev/flutter_status_alert/master/assets/apple_podcasts_subscribed_animation.gif" height="700px">  | <img src="https://raw.githubusercontent.com/yako-dev/flutter_status_alert/master/assets/status_alert_subscribed_animation.gif" height="700px"> |
+| <img src="https://raw.githubusercontent.com/yako-dev/flutter-status-alert/master/assets/apple_podcasts_subscribed_animation.gif" height="700px">  | <img src="https://raw.githubusercontent.com/yako-dev/flutter-status-alert/master/assets/status_alert_subscribed_animation.gif" height="700px"> |
 | ------------- | ------------- | ------------ |
 | `Apple Podcasts` | `Status Alert` |
 <br>
