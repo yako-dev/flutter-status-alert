@@ -1,0 +1,23 @@
+name: status_alert
+description: A new Flutter package.
+version: 0.0.1
+author: yako.io <yako@yako.io>
+homepage: https://github.com/yako-dev/flutter-status-alert
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flare_flutter: ^1.7.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  fonts:
+    - family: SFNS
+      fonts:
+        - asset: assets/fonts/SFNS.ttf
