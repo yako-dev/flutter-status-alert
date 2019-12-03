@@ -216,24 +216,30 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
         ));
       }
     }
-    return Container(
-      width: screenWidth * 0.72,
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: Container(
-          decoration: BoxDecoration(
-            color: widget.backgroundColor ??
-                    Theme.of(context).brightness == Brightness.dark
-                ? darkBackground
-                : lightBackground,
-            borderRadius: widget.borderRadius,
-          ),
-          child: Padding(
-            padding: widget.padding,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: content,
+    return BackdropFilter(
+      filter: ImageFilter.blur(
+        sigmaX: 2.0,
+        sigmaY: 2.0,
+      ),
+      child: Container(
+        width: screenWidth * 0.72,
+        child: AspectRatio(
+          aspectRatio: 1.0,
+          child: Container(
+            decoration: BoxDecoration(
+              color: widget.backgroundColor ??
+                      Theme.of(context).brightness == Brightness.dark
+                  ? darkBackground
+                  : lightBackground,
+              borderRadius: widget.borderRadius,
+            ),
+            child: Padding(
+              padding: widget.padding,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: content,
+              ),
             ),
           ),
         ),

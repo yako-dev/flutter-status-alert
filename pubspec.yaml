@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flare_flutter: ^1.7.3
+  pedantic: ^1.8.0+1
 
 dev_dependencies:
   flutter_test:
