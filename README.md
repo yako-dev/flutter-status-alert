@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  status_alert: ^0.1.1
+  status_alert: ^0.1.2
 ```
 ```dart
 import 'package:status_alert/status_alert.dart';

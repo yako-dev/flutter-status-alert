@@ -1,4 +1,4 @@
-## [0.1.2] - [April 1, 2019]
+## [0.1.2] - [April 1, 2020]
 
 * Fixed issue "Type 'Color' is not a subtype of type 'bool'" 
 
