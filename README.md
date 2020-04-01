@@ -1,6 +1,6 @@
 # Status Alert for Flutter
 
-[![pub package](https://img.shields.io/badge/pub-0.1.1-blueviolet.svg)](https://pub.dev/packages/status_alert)
+[![pub package](https://img.shields.io/badge/pub-0.1.2-blueviolet.svg)](https://pub.dev/packages/status_alert)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yako-dev/flutter-status-alert/master/assets/status_alert_logo.png" height="400px">
