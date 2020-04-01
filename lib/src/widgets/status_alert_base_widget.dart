@@ -197,11 +197,10 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
             widget.subtitle,
             key: widget.subtitleOptions.key,
             style: widget.subtitleOptions.style.copyWith(
-              color: widget.subtitleOptions.style.color ??
-                      Theme.of(context).brightness == Brightness.light
-                  ? lightAccent
-                  : darkAccent,
-            ),
+                color: widget.subtitleOptions.style.color ??
+                    (Theme.of(context).brightness == Brightness.light
+                        ? lightAccent
+                        : darkAccent)),
             locale: widget.subtitleOptions.locale,
             softWrap: widget.subtitleOptions.softWrap,
             maxLines: widget.subtitleOptions.maxLines,

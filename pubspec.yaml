@@ -1,6 +1,6 @@
 name: status_alert
 description: Display Apple system-like self-hiding status alerts. It is well suited for notifying user without interrupting user flow.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/yako-dev/flutter-status-alert
 
 environment:
