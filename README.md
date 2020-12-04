@@ -1,6 +1,6 @@
 # Status Alert for Flutter
 
-[![pub package](https://img.shields.io/badge/pub-0.1.2-blueviolet.svg)](https://pub.dev/packages/status_alert)
+[![Pub Version](https://img.shields.io/pub/v/status_alert?color=blueviolet)](https://pub.dev/packages/status_alert)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yako-dev/flutter-status-alert/master/assets/status_alert_logo.png" height="400px">
@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  status_alert: ^0.1.2
+  status_alert: ^0.1.3
 ```
 ```dart
 import 'package:status_alert/status_alert.dart';

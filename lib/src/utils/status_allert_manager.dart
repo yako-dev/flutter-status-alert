@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 
 class StatusAlertManager {
   static OverlayState state;
-  static OverlayEntry entry;
+  static OverlayEntry alert;
   static bool isVisible = false;
 
   static void createView({
     @required BuildContext context,
     @required Widget child,
-    @required Duration duration,
+    bool dismissOnBackgroundTap = false,
   }) async {
-    if (!isVisible) {
+    if (dismissOnBackgroundTap) {
+      showDialog(
+        context: context,
+        builder: (_) => child,
+        barrierColor: Colors.transparent,
+      );
+    } else if (!isVisible) {
       dismiss();
       state = Overlay.of(context);
-      entry = OverlayEntry(builder: (_) => child);
+      alert = OverlayEntry(builder: (_) => child);
       isVisible = true;
-      state.insert(entry);
+      state.insert(alert);
     }
   }
 
@@ -24,6 +30,6 @@ class StatusAlertManager {
       return;
     }
     isVisible = false;
-    entry?.remove();
+    alert?.remove();
   }
 }

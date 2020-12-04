@@ -67,11 +67,15 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
     );
     scaleAnimation = scaleTween.animate(animationController);
     fadeAnimation = fadeTween.animate(animationController);
-    animationController.forward();
-    await Future.delayed(animationDuration);
-    await Future.delayed(widget.duration);
-    animationController.reverse();
-    await Future.delayed(animationDuration);
+    if (mounted) {
+      animationController?.forward();
+      await Future.delayed(animationDuration);
+      await Future.delayed(widget.duration);
+    }
+    if (mounted) {
+      animationController?.reverse();
+      await Future.delayed(animationDuration);
+    }
     widget.onHide();
   }
 
@@ -227,9 +231,9 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
           child: Container(
             decoration: BoxDecoration(
               color: widget.backgroundColor ??
-                      Theme.of(context).brightness == Brightness.dark
-                  ? darkBackground
-                  : lightBackground,
+                  (Theme.of(context).brightness == Brightness.dark
+                      ? darkBackground
+                      : lightBackground),
               borderRadius: widget.borderRadius,
             ),
             child: Padding(

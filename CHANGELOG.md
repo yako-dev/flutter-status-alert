@@ -1,3 +1,9 @@
+## [0.1.3] - [December 4, 2020]
+
+* Dependencies version update
+* Type 'MaterialColor' is not a subtype of type 'bool was fixed
+* New feature: dismiss on background tap
+
 ## [0.1.2] - [April 1, 2020]
 
 * Fixed issue "Type 'Color' is not a subtype of type 'bool'" 

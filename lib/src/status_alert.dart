@@ -15,6 +15,7 @@ class StatusAlert {
     StatusAlertTextConfiguration subtitleOptions,
     PopupMediaConfiguration configuration,
     Alignment alignment = Alignment.center,
+    bool dismissOnBackgroundTap = false,
     EdgeInsets margin = const EdgeInsets.all(40.0),
     EdgeInsets padding = const EdgeInsets.all(30.0),
     Duration duration = const Duration(milliseconds: 1300),
@@ -40,7 +41,7 @@ class StatusAlert {
 
     StatusAlertManager.createView(
       context: context,
-      duration: duration,
+      dismissOnBackgroundTap: dismissOnBackgroundTap,
       child: StatusAlertBaseWidget(
         title: title,
         margin: margin,
