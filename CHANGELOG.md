@@ -1,4 +1,4 @@
-## [1.0.0] - [March 20, 2021]
+## [1.0.0-nullsafety.1] - [March 20, 2021]
 * Flutter 2 & null safety
 
 ## [0.1.3] - [December 4, 2020]
