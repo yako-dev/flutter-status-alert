@@ -2,46 +2,46 @@ import 'package:flutter/material.dart';
 
 class StatusAlertTextConfiguration {
   /// The text to display as a [InlineSpan].
-  InlineSpan textSpan;
+  InlineSpan? textSpan;
 
   /// If non-null, the style to use for this text.
   TextStyle style;
 
   /// {@macro flutter.painting.textPainter.strutStyle}
-  StrutStyle strutStyle;
+  StrutStyle? strutStyle;
 
   /// How the text should be aligned horizontally.
   TextAlign textAlign;
 
   /// The directionality of the text.
-  TextDirection textDirection;
+  TextDirection? textDirection;
 
   /// Used to select a font when the same Unicode character can
   /// be rendered differently, depending on the locale.
-  Locale locale;
+  Locale? locale;
 
   /// Whether the text should break at soft line breaks.
-  bool softWrap;
+  bool? softWrap;
 
   /// How visual overflow should be handled.
-  TextOverflow overflow;
+  TextOverflow? overflow;
 
   /// The number of font pixels for each logical pixel.
-  double textScaleFactor;
+  double? textScaleFactor;
 
   /// An optional maximum number of lines for the text to span, wrapping if necessary.
   /// If the text exceeds the given number of lines, it will be truncated according
   /// to [overflow].
-  int maxLines;
+  int? maxLines;
 
   /// An alternative semantics label for this text.
-  String semanticsLabel;
+  String? semanticsLabel;
 
   /// {@macro flutter.painting.textPainter.textWidthBasis}
-  TextWidthBasis textWidthBasis;
+  TextWidthBasis? textWidthBasis;
 
   /// Key
-  Key key;
+  Key? key;
 
   StatusAlertTextConfiguration({
     this.textSpan,

@@ -7,13 +7,13 @@ import 'package:status_alert/src/widgets/status_alert_base_widget.dart';
 class StatusAlert {
   static void show(
     BuildContext context, {
-    String title,
-    String subtitle,
-    Color backgroundColor,
+    String? title,
+    String? subtitle,
+    Color? backgroundColor,
     double blurPower = 15,
-    StatusAlertTextConfiguration titleOptions,
-    StatusAlertTextConfiguration subtitleOptions,
-    PopupMediaConfiguration configuration,
+    StatusAlertTextConfiguration? titleOptions,
+    StatusAlertTextConfiguration? subtitleOptions,
+    PopupMediaConfiguration? configuration,
     Alignment alignment = Alignment.center,
     bool dismissOnBackgroundTap = false,
     EdgeInsets margin = const EdgeInsets.all(40.0),
@@ -21,8 +21,8 @@ class StatusAlert {
     Duration duration = const Duration(milliseconds: 1300),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(10.0)),
   }) {
-    StatusAlertTextConfiguration titleConfig = titleOptions;
-    StatusAlertTextConfiguration subtitleConfig = subtitleOptions;
+    StatusAlertTextConfiguration? titleConfig = titleOptions;
+    StatusAlertTextConfiguration? subtitleConfig = subtitleOptions;
     if (titleConfig == null) {
       titleConfig = StatusAlertTextConfiguration();
       titleConfig.style = titleConfig.style.copyWith(

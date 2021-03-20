@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class StatusAlertManager {
-  static OverlayState state;
-  static OverlayEntry alert;
+  static OverlayState? state;
+  static OverlayEntry? alert;
   static bool isVisible = false;
 
   static void createView({
-    @required BuildContext context,
-    @required Widget child,
+    required BuildContext context,
+    required Widget child,
     bool dismissOnBackgroundTap = false,
   }) async {
     if (dismissOnBackgroundTap) {
@@ -21,7 +21,7 @@ class StatusAlertManager {
       state = Overlay.of(context);
       alert = OverlayEntry(builder: (_) => child);
       isVisible = true;
-      state.insert(alert);
+      state!.insert(alert!);
     }
   }
 

@@ -14,10 +14,10 @@ class FlareConfiguration extends PopupMediaConfiguration {
   final String filename;
 
   /// The name of the artboard to display.
-  final String artboard;
+  final String? artboard;
 
   /// The name of the animation to play.
-  final String animation;
+  final String? animation;
 
   /// When true, the animation will be applied at the end of its duration.
   final bool snapToEnd;
@@ -39,18 +39,18 @@ class FlareConfiguration extends PopupMediaConfiguration {
 
   /// The [FlareController] used to drive animations/mixing/procedural hierarchy
   /// manipulation of the Flare contents.
-  final FlareController controller;
+  final FlareController? controller;
 
   /// Callback invoked when [animation] has completed. If [animation] is looping
   /// this callback is never invoked.
-  final FlareCompletedCallback callback;
+  final FlareCompletedCallback? callback;
 
   /// The color to override any fills/strokes with.
-  final Color color;
+  final Color? color;
 
   /// The name of the node to use to determine the bounds of the content.
   /// When null it will default to the bounds of the artboard.
-  final String boundsNode;
+  final String? boundsNode;
 
   /// When true the intrinsic size of the artboard will be used as the
   /// dimensions of this widget.
@@ -84,22 +84,22 @@ class FlareConfiguration extends PopupMediaConfiguration {
 @immutable
 class IconConfiguration extends PopupMediaConfiguration {
   /// Key
-  final Key key;
+  final Key? key;
 
   /// The icon to display.
   final IconData icon;
 
   /// The size of the icon in logical pixels.
-  final double size;
+  final double? size;
 
   /// The color to use when drawing the icon.
-  final Color color;
+  final Color? color;
 
   /// Semantic label for the icon.
-  final String semanticLabel;
+  final String? semanticLabel;
 
   /// The text direction to use for rendering the icon.
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   /// Margin for [Icon]
   final EdgeInsets margin;
@@ -130,6 +130,6 @@ class WidgetConfiguration extends PopupMediaConfiguration {
   final Widget widget;
 
   const WidgetConfiguration({
-    @required this.widget,
+    required this.widget,
   });
 }
