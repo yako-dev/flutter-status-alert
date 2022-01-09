@@ -1,3 +1,6 @@
+## [1.0.0] - [January 9, 2022]
+* Fix gradle.wrapper version. Stable.
+
 ## [1.0.0-nullsafety.1] - [March 20, 2021]
 * Flutter 2 & null safety
 
