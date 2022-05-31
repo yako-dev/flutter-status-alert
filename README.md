@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  status_alert: ^1.0.0
+  status_alert: ^1.0.1
 ```
 ```dart
 import 'package:status_alert/status_alert.dart';
@@ -26,6 +26,7 @@ import 'package:status_alert/status_alert.dart';
       title: 'Title',
       subtitle: 'Subtitle',
       configuration: IconConfiguration(icon: Icons.done),
+      maxWidth: 260,
     )
 ```
 <br>

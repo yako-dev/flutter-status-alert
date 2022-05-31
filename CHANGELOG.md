@@ -1,3 +1,6 @@
+## [1.0.1] - [May 31, 2022]
+* Add maxWidth to StatusAlert.show
+
 ## [1.0.0] - [January 9, 2022]
 * Fix gradle.wrapper version. Stable.
 

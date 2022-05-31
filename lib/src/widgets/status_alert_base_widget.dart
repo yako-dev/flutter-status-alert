@@ -20,23 +20,25 @@ class StatusAlertBaseWidget extends StatefulWidget {
   final StatusAlertTextConfiguration? subtitleOptions;
   final VoidCallback? onHide;
   final double? blurPower;
+  final double? maxWidth;
 
-  const StatusAlertBaseWidget({
-    Key? key,
-    required this.margin,
-    required this.padding,
-    required this.alignment,
-    required this.borderRadius,
-    required this.backgroundColor,
-    this.title,
-    this.onHide,
-    this.subtitle,
-    this.duration,
-    this.blurPower,
-    this.titleOptions,
-    this.configuration,
-    this.subtitleOptions,
-  }) : super(key: key);
+  const StatusAlertBaseWidget(
+      {Key? key,
+      required this.margin,
+      required this.padding,
+      required this.alignment,
+      required this.borderRadius,
+      required this.backgroundColor,
+      this.title,
+      this.onHide,
+      this.subtitle,
+      this.duration,
+      this.blurPower,
+      this.titleOptions,
+      this.configuration,
+      this.subtitleOptions,
+      this.maxWidth})
+      : super(key: key);
 
   @override
   __TDBaseWidgetState createState() => __TDBaseWidgetState();
@@ -120,6 +122,10 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
         MediaQuery.of(context).orientation == Orientation.portrait
             ? MediaQuery.of(context).size.width
             : MediaQuery.of(context).size.height;
+
+    if (widget.maxWidth != null && screenWidth > widget.maxWidth! / 0.72) {
+      screenWidth = widget.maxWidth! / 0.72;
+    }
 
     List<Widget> content = <Widget>[];
     if (widget.configuration is WidgetConfiguration) {
