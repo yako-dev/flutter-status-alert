@@ -1,5 +1,5 @@
-## [1.0.1] - [May 31, 2022]
-* Add maxWidth to StatusAlert.show
+## [1.0.1] - [Jun 3, 2022]
+* The maxWidth parameter will let you to limit the maximum size of the Status Alert smaller on big screens
 
 ## [1.0.0] - [January 9, 2022]
 * Fix gradle.wrapper version. Stable.
