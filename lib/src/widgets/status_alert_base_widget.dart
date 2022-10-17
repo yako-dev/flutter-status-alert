@@ -123,6 +123,7 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
             ? MediaQuery.of(context).size.width
             : MediaQuery.of(context).size.height;
 
+    // Used to contoll the widget size on big screens
     if (widget.maxWidth != null && screenWidth > widget.maxWidth! / 0.72) {
       screenWidth = widget.maxWidth! / 0.72;
     }
