@@ -34,6 +34,7 @@ class StatusAlertScreen extends StatelessWidget {
                 StatusAlert.show(
                   context,
                   duration: Duration(seconds: 2),
+                  maxWidth: 260,
                   title: 'Loved',
                   subtitle: 'We\'ll recommend more like this For You.',
                   configuration: IconConfiguration(icon: Icons.favorite_border),
