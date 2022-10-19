@@ -38,6 +38,22 @@ void main() {
       backgroundColor: Colors.green,
     );
 
+    final iconButton = Builder(builder: (context) {
+      return IconButton(
+        icon: Icon(Icons.favorite_border),
+        onPressed: () {
+          StatusAlert.show(
+            context,
+            duration: Duration(seconds: 2),
+            maxWidth: 20,
+            title: 'Loved',
+            subtitle: 'We\'ll recommend more like this For You.',
+            configuration: IconConfiguration(icon: Icons.favorite_border),
+          );
+        },
+      );
+    });
+
     testWidgets('Widget should render correctly', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(_wrapWithMaterialApp(statusAlert));
@@ -114,9 +130,34 @@ void main() {
         expect(iconWidget.color, Colors.blue);
       });
     });
+
+    testWidgets('Alert should appears after onTap ', (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(_wrapWithMaterialApp(iconButton));
+
+        await tester.tap(find.byIcon(Icons.favorite_border));
+        await tester.pumpAndSettle();
+        expect(find.byType(StatusAlertBaseWidget), findsOneWidget);
+      });
+    });
+
+    testWidgets('Alert should disappears after duration', (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(_wrapWithMaterialApp(iconButton));
+
+        await tester.tap(find.byIcon(Icons.favorite_border));
+        await tester.pumpAndSettle();
+        await new Future.delayed(new Duration(seconds: 3));
+        await tester.pumpAndSettle();
+        expect(find.byType(StatusAlertBaseWidget), findsNothing);
+      });
+    });
   });
 }
 
 Widget _wrapWithMaterialApp(Widget testWidget) {
-  return MaterialApp(home: testWidget);
+  return MaterialApp(
+      home: Scaffold(
+    body: testWidget,
+  ));
 }
