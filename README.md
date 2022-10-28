@@ -8,11 +8,15 @@
 
 
 ## Installing:
-In your pubspec.yaml
+1. Add the dependency in your `pubspec.yaml` file.
+
 ```yaml
 dependencies:
   status_alert: ^1.0.1
 ```
+
+2. Import the `settings_ui` package.
+
 ```dart
 import 'package:status_alert/status_alert.dart';
 ```
@@ -29,6 +33,34 @@ import 'package:status_alert/status_alert.dart';
       maxWidth: 260,
     )
 ```
+<br>
+<br>
+
+## Status Alert Base Widget
+
+Status Alert Base Widget
+
+### Parameters
+
+| Parameter | Description | Required |
+|--|--|--|
+| PopupMediaConfiguration? configuration |  | +
+| BorderRadius borderRadius | Set a border radius for Alert Widget | +
+| Color? backgroundColor | Set a background color for Alert Widget | +
+| Alignment alignment | Set an alignment of the whole widget  | +
+| EdgeInsets padding | Set a padding of the content widget | +
+| EdgeInsets margin | Margin of the content widget | +
+| String? title | Set a title of Alert Widget | -
+| String? subtitle | Set a subtitle of Alert Widget | -
+| Duration? duration | Set a duration after which the widget disappears | -
+| StatusAlertTextConfiguration? titleOptions | Set a TextConfiguration for title | -
+| StatusAlertTextConfiguration? subtitleOptions | Set a TextConfiguration for subtitle | -
+| VoidCallback? onHide | Set the function that will be called after duration | -
+| double? blurPower | Set a blur Power for Alert Widget | -
+| double? maxWidth | Set a max width Alert Widget | -
+
+<br>
+<br>
 <br>
 <br>
 
