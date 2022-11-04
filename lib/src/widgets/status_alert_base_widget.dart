@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flare_flutter/flare_actor.dart';
+//import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:status_alert/src/models/status_alert_media_configuration.dart';
 import 'package:status_alert/src/models/status_alert_text_configuration.dart';
@@ -41,12 +41,12 @@ class StatusAlertBaseWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  __TDBaseWidgetState createState() => __TDBaseWidgetState();
+  TDBaseWidgetState createState() => TDBaseWidgetState();
 }
 
-class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
+class TDBaseWidgetState extends State<StatusAlertBaseWidget>
     with SingleTickerProviderStateMixin {
-  Duration animationDuration = Duration(milliseconds: 200);
+  Duration animationDuration = const Duration(milliseconds: 200);
   AnimationController? scaleController;
   AnimationController? animationController;
   late Animation<double> scaleAnimation;
@@ -63,7 +63,7 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
 
   Future<void> initAnimations() async {
     animationController = AnimationController(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     );
     scaleAnimation = scaleTween.animate(animationController!);
@@ -154,21 +154,21 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
           child: SizedBox(
             width: config.size.width,
             height: config.size.height,
-            child: FlareActor(
-              config.filename,
-              alignment: config.alignment,
-              fit: config.fit,
-              animation: config.animation,
-              color: config.color,
-              controller: config.controller,
-              artboard: config.artboard,
-              boundsNode: config.boundsNode,
-              callback: config.callback,
-              isPaused: config.isPaused,
-              shouldClip: config.shouldClip,
-              sizeFromArtboard: config.sizeFromArtboard,
-              snapToEnd: config.snapToEnd,
-            ),
+            // child: FlareActor(
+            //   config.filename,
+            //   alignment: config.alignment,
+            //   fit: config.fit,
+            //   animation: config.animation,
+            //   color: config.color,
+            //   controller: config.controller,
+            //   artboard: config.artboard,
+            //   boundsNode: config.boundsNode,
+            //   callback: config.callback,
+            //   isPaused: config.isPaused,
+            //   shouldClip: config.shouldClip,
+            //   sizeFromArtboard: config.sizeFromArtboard,
+            //   snapToEnd: config.snapToEnd,
+            // ),
           ),
         ));
       }
@@ -224,7 +224,7 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
         sigmaX: 2.0,
         sigmaY: 2.0,
       ),
-      child: Container(
+      child: SizedBox(
         width: screenWidth * 0.72,
         child: AspectRatio(
           aspectRatio: 1.0,
