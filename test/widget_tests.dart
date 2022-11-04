@@ -7,7 +7,7 @@ import 'package:status_alert/status_alert.dart';
 void main() {
   group('Status Alert Test', () {
     final statusAlert = StatusAlertBaseWidget(
-      duration: Duration(minutes: 1),
+      duration: const Duration(minutes: 1),
       title: 'Subscribed',
       margin: const EdgeInsets.all(40.0),
       padding: EdgeInsets.zero,
@@ -16,14 +16,14 @@ void main() {
       blurPower: 15,
       maxWidth: 260,
       titleOptions: StatusAlertTextConfiguration(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.red,
           fontSize: 23,
           fontWeight: FontWeight.w600,
         ),
       ),
       subtitleOptions: StatusAlertTextConfiguration(
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.orange,
           fontSize: 16,
           fontWeight: FontWeight.w400,
@@ -31,7 +31,7 @@ void main() {
       ),
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       onHide: StatusAlertManager.dismiss,
-      configuration: IconConfiguration(
+      configuration: const IconConfiguration(
         icon: Icons.favorite_border,
         color: Colors.blue,
       ),
