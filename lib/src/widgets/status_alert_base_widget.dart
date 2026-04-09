@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:status_alert/src/models/status_alert_media_configuration.dart';
 import 'package:status_alert/src/models/status_alert_text_configuration.dart';
@@ -22,67 +21,65 @@ class StatusAlertBaseWidget extends StatefulWidget {
   final double? blurPower;
   final double? maxWidth;
 
-  const StatusAlertBaseWidget(
-      {Key? key,
-      required this.margin,
-      required this.padding,
-      required this.alignment,
-      required this.borderRadius,
-      required this.backgroundColor,
-      this.title,
-      this.onHide,
-      this.subtitle,
-      this.duration,
-      this.blurPower,
-      this.titleOptions,
-      this.configuration,
-      this.subtitleOptions,
-      this.maxWidth})
-      : super(key: key);
+  const StatusAlertBaseWidget({
+    super.key,
+    required this.margin,
+    required this.padding,
+    required this.alignment,
+    required this.borderRadius,
+    required this.backgroundColor,
+    this.title,
+    this.onHide,
+    this.subtitle,
+    this.duration,
+    this.blurPower,
+    this.titleOptions,
+    this.configuration,
+    this.subtitleOptions,
+    this.maxWidth,
+  });
 
   @override
-  __TDBaseWidgetState createState() => __TDBaseWidgetState();
+  State<StatusAlertBaseWidget> createState() => _StatusAlertBaseWidgetState();
 }
 
-class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
+class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
     with SingleTickerProviderStateMixin {
-  Duration animationDuration = Duration(milliseconds: 200);
-  AnimationController? scaleController;
-  AnimationController? animationController;
-  late Animation<double> scaleAnimation;
-  late Animation<double> fadeAnimation;
+  static const Duration _animationDuration = Duration(milliseconds: 200);
+  late final AnimationController _animationController;
+  late final Animation<double> _scaleAnimation;
+  late final Animation<double> _fadeAnimation;
 
-  final Tween<double> scaleTween = Tween<double>(begin: 0.9, end: 1.0);
-  final Tween<double> fadeTween = Tween<double>(begin: 0.0, end: 1.0);
+  final Tween<double> _scaleTween = Tween<double>(begin: 0.9, end: 1.0);
+  final Tween<double> _fadeTween = Tween<double>(begin: 0.0, end: 1.0);
 
   @override
   void initState() {
-    initAnimations();
     super.initState();
-  }
-
-  Future<void> initAnimations() async {
-    animationController = AnimationController(
-      duration: Duration(milliseconds: 200),
+    _animationController = AnimationController(
+      duration: _animationDuration,
       vsync: this,
     );
-    scaleAnimation = scaleTween.animate(animationController!);
-    fadeAnimation = fadeTween.animate(animationController!);
+    _scaleAnimation = _scaleTween.animate(_animationController);
+    _fadeAnimation = _fadeTween.animate(_animationController);
+    _runAnimation();
+  }
+
+  Future<void> _runAnimation() async {
+    if (!mounted) return;
+    await _animationController.forward();
+    if (!mounted) return;
+    await Future.delayed(widget.duration!);
+    if (!mounted) return;
+    await _animationController.reverse();
     if (mounted) {
-      animationController?.forward();
-      await Future.delayed(animationDuration);
-      await Future.delayed(widget.duration!);
+      widget.onHide?.call();
     }
-    if (mounted) {
-      animationController?.reverse();
-      await Future.delayed(animationDuration);
-    }
-    widget.onHide!();
   }
 
   @override
   void dispose() {
-    animationController!.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -92,11 +89,11 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
       child: IgnorePointer(
         child: Material(
           color: Colors.transparent,
-          child: Container(
+          child: Align(
             alignment: widget.alignment,
             child: Padding(
               padding: widget.margin,
-              child: buildBody(),
+              child: _buildBody(),
             ),
           ),
         ),
@@ -104,74 +101,50 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
     );
   }
 
-  Widget buildBody() {
+  Widget _buildBody() {
     return ScaleTransition(
-      scale: scaleAnimation,
+      scale: _scaleAnimation,
       child: FadeTransition(
-        opacity: fadeAnimation,
+        opacity: _fadeAnimation,
         child: ClipRRect(
           borderRadius: widget.borderRadius,
-          child: buildContent(),
+          child: _buildContent(),
         ),
       ),
     );
   }
 
-  Widget buildContent() {
+  Widget _buildContent() {
     double screenWidth =
         MediaQuery.of(context).orientation == Orientation.portrait
             ? MediaQuery.of(context).size.width
             : MediaQuery.of(context).size.height;
 
-    // Used to contoll the widget size on big screens
     if (widget.maxWidth != null && screenWidth > widget.maxWidth! / 0.72) {
       screenWidth = widget.maxWidth! / 0.72;
     }
 
-    List<Widget> content = <Widget>[];
+    final List<Widget> content = <Widget>[];
+
     if (widget.configuration is WidgetConfiguration) {
-      WidgetConfiguration config = widget.configuration as WidgetConfiguration;
+      final config = widget.configuration as WidgetConfiguration;
       content.add(config.widget);
     } else {
       if (widget.configuration is IconConfiguration) {
-        IconConfiguration config = widget.configuration as IconConfiguration;
+        final config = widget.configuration as IconConfiguration;
         content.add(Padding(
           padding: config.margin,
           child: Icon(
             config.icon,
             key: config.key,
             size: config.size ?? screenWidth * 0.35,
-            color: config.color ?? getThemeColor(),
+            color: config.color ?? _themeColor,
             semanticLabel: config.semanticLabel,
             textDirection: config.textDirection,
           ),
         ));
       }
-      if (widget.configuration is FlareConfiguration) {
-        FlareConfiguration config = widget.configuration as FlareConfiguration;
-        content.add(Padding(
-          padding: config.margin,
-          child: SizedBox(
-            width: config.size.width,
-            height: config.size.height,
-            child: FlareActor(
-              config.filename,
-              alignment: config.alignment,
-              fit: config.fit,
-              animation: config.animation,
-              color: config.color,
-              controller: config.controller,
-              artboard: config.artboard,
-              boundsNode: config.boundsNode,
-              callback: config.callback,
-              isPaused: config.isPaused,
-              shouldClip: config.shouldClip,
-              sizeFromArtboard: config.sizeFromArtboard,
-              snapToEnd: config.snapToEnd,
-            ),
-          ),
-        ));
-      }
+
       if (widget.title != null) {
         content.add(Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -179,7 +152,7 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
             widget.title!,
             key: widget.titleOptions!.key,
             style: widget.titleOptions!.style.copyWith(
-              color: widget.titleOptions!.style.color ?? getThemeColor(),
+              color: widget.titleOptions!.style.color ?? _themeColor,
             ),
             locale: widget.titleOptions!.locale,
             softWrap: widget.titleOptions!.softWrap,
@@ -190,10 +163,11 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
             textDirection: widget.titleOptions!.textDirection,
             textWidthBasis: widget.titleOptions!.textWidthBasis,
             semanticsLabel: widget.titleOptions!.semanticsLabel,
-            textScaleFactor: widget.titleOptions!.textScaleFactor,
+            textScaler: widget.titleOptions!.textScaler,
           ),
         ));
       }
+
       if (widget.subtitle != null) {
         content.add(Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -201,10 +175,11 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
             widget.subtitle!,
             key: widget.subtitleOptions!.key,
             style: widget.subtitleOptions!.style.copyWith(
-                color: widget.subtitleOptions!.style.color ??
-                    (Theme.of(context).brightness == Brightness.light
-                        ? lightAccent
-                        : darkAccent)),
+              color: widget.subtitleOptions!.style.color ??
+                  (Theme.of(context).brightness == Brightness.light
+                      ? lightAccent
+                      : darkAccent),
+            ),
             locale: widget.subtitleOptions!.locale,
             softWrap: widget.subtitleOptions!.softWrap,
             maxLines: widget.subtitleOptions!.maxLines,
@@ -214,35 +189,39 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
             textDirection: widget.subtitleOptions!.textDirection,
             textWidthBasis: widget.subtitleOptions!.textWidthBasis,
             semanticsLabel: widget.subtitleOptions!.semanticsLabel,
-            textScaleFactor: widget.subtitleOptions!.textScaleFactor,
+            textScaler: widget.subtitleOptions!.textScaler,
           ),
         ));
       }
     }
+
+    final double blurSigma = widget.blurPower ?? 2.0;
+
     return BackdropFilter(
       filter: ImageFilter.blur(
-        sigmaX: 2.0,
-        sigmaY: 2.0,
+        sigmaX: blurSigma,
+        sigmaY: blurSigma,
       ),
-      child: Container(
-        width: screenWidth * 0.72,
-        child: AspectRatio(
-          aspectRatio: 1.0,
-          child: Container(
-            decoration: BoxDecoration(
-              color: widget.backgroundColor ??
-                  (Theme.of(context).brightness == Brightness.dark
-                      ? darkBackground
-                      : lightBackground),
-              borderRadius: widget.borderRadius,
-            ),
-            child: Padding(
-              padding: widget.padding,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: content,
-              ),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: screenWidth * 0.72,
+          maxWidth: screenWidth * 0.72,
+          minHeight: screenWidth * 0.72,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: widget.backgroundColor ??
+                (Theme.of(context).brightness == Brightness.dark
+                    ? darkBackground
+                    : lightBackground),
+            borderRadius: widget.borderRadius,
+          ),
+          child: Padding(
+            padding: widget.padding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: content,
             ),
           ),
         ),
@@ -250,7 +229,7 @@ class __TDBaseWidgetState extends State<StatusAlertBaseWidget>
     );
   }
 
-  Color getThemeColor() {
+  Color get _themeColor {
     return Theme.of(context).brightness == Brightness.light
         ? lightAccent
         : darkAccent;

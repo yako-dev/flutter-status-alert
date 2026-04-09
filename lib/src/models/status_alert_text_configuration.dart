@@ -26,8 +26,8 @@ class StatusAlertTextConfiguration {
   /// How visual overflow should be handled.
   TextOverflow? overflow;
 
-  /// The number of font pixels for each logical pixel.
-  double? textScaleFactor;
+  /// The text scaler to use for scaling the text.
+  TextScaler? textScaler;
 
   /// An optional maximum number of lines for the text to span, wrapping if necessary.
   /// If the text exceeds the given number of lines, it will be truncated according
@@ -53,7 +53,7 @@ class StatusAlertTextConfiguration {
     this.locale,
     this.softWrap,
     this.overflow,
-    this.textScaleFactor,
+    this.textScaler,
     this.maxLines,
     this.semanticsLabel,
     this.textWidthBasis,
