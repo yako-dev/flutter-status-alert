@@ -202,25 +202,26 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
         sigmaX: blurSigma,
         sigmaY: blurSigma,
       ),
-      child: SizedBox(
-        width: screenWidth * 0.72,
-        child: AspectRatio(
-          aspectRatio: 1.0,
-          child: Container(
-            decoration: BoxDecoration(
-              color: widget.backgroundColor ??
-                  (Theme.of(context).brightness == Brightness.dark
-                      ? darkBackground
-                      : lightBackground),
-              borderRadius: widget.borderRadius,
-            ),
-            child: Padding(
-              padding: widget.padding,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: content,
-              ),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: screenWidth * 0.72,
+          maxWidth: screenWidth * 0.72,
+          minHeight: screenWidth * 0.72,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: widget.backgroundColor ??
+                (Theme.of(context).brightness == Brightness.dark
+                    ? darkBackground
+                    : lightBackground),
+            borderRadius: widget.borderRadius,
+          ),
+          child: Padding(
+            padding: widget.padding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: content,
             ),
           ),
         ),
