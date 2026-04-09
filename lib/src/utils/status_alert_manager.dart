@@ -10,7 +10,6 @@ class StatusAlertManager {
     required BuildContext context,
     required Widget child,
     bool dismissOnBackgroundTap = false,
-    VoidCallback? onComplete,
   }) {
     if (isVisible) return;
 

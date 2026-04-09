@@ -44,7 +44,6 @@ class StatusAlert {
     StatusAlertManager.createView(
       context: context,
       dismissOnBackgroundTap: dismissOnBackgroundTap,
-      onComplete: onComplete,
       child: StatusAlertBaseWidget(
         title: title,
         margin: margin,
