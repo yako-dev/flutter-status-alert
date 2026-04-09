@@ -50,8 +50,8 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
   late final Animation<double> _scaleAnimation;
   late final Animation<double> _fadeAnimation;
 
-  final Tween<double> _scaleTween = const Tween<double>(begin: 0.9, end: 1.0);
-  final Tween<double> _fadeTween = const Tween<double>(begin: 0.0, end: 1.0);
+  final Tween<double> _scaleTween = Tween<double>(begin: 0.9, end: 1.0);
+  final Tween<double> _fadeTween = Tween<double>(begin: 0.0, end: 1.0);
 
   @override
   void initState() {

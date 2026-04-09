@@ -112,18 +112,18 @@ void main() {
   group('WidgetConfiguration', () {
     testWidgets('Custom widget renders inside alert', (tester) async {
       await tester.runAsync(() async {
-        final widget = StatusAlertBaseWidget(
-          duration: const Duration(minutes: 1),
+        const widget = StatusAlertBaseWidget(
+          duration: Duration(minutes: 1),
           title: null,
-          margin: const EdgeInsets.all(40.0),
+          margin: EdgeInsets.all(40.0),
           padding: EdgeInsets.zero,
           subtitle: null,
           alignment: Alignment.center,
-          blurPower: 0,
-          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          blurPower: 0.0,
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
           onHide: StatusAlertManager.dismiss,
           backgroundColor: null,
-          configuration: const WidgetConfiguration(
+          configuration: WidgetConfiguration(
             widget: Icon(Icons.check, key: Key('custom_widget')),
           ),
         );
