@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:status_alert/src/models/status_alert_media_configuration.dart';
 import 'package:status_alert/src/models/status_alert_text_configuration.dart';
-import 'package:status_alert/src/utils/status_allert_manager.dart';
+import 'package:status_alert/src/utils/status_alert_manager.dart';
 import 'package:status_alert/src/widgets/status_alert_base_widget.dart';
 
 class StatusAlert {
@@ -10,7 +10,7 @@ class StatusAlert {
     String? title,
     String? subtitle,
     Color? backgroundColor,
-    double blurPower = 15,
+    double blurPower = 2.0,
     double? maxWidth,
     StatusAlertTextConfiguration? titleOptions,
     StatusAlertTextConfiguration? subtitleOptions,
@@ -21,28 +21,30 @@ class StatusAlert {
     EdgeInsets padding = const EdgeInsets.all(30.0),
     Duration duration = const Duration(milliseconds: 1300),
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(10.0)),
+    VoidCallback? onComplete,
   }) {
-    StatusAlertTextConfiguration? titleConfig = titleOptions;
-    StatusAlertTextConfiguration? subtitleConfig = subtitleOptions;
-    if (titleConfig == null) {
-      titleConfig = StatusAlertTextConfiguration();
-      titleConfig.style = titleConfig.style.copyWith(
-        fontSize: 23,
-        fontWeight: FontWeight.w600,
-      );
-    }
+    StatusAlertTextConfiguration titleConfig = titleOptions ??
+        StatusAlertTextConfiguration(
+          style: const TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'SFNS',
+          ),
+        );
 
-    if (subtitleConfig == null) {
-      subtitleConfig = StatusAlertTextConfiguration();
-      subtitleConfig.style = subtitleConfig.style.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      );
-    }
+    StatusAlertTextConfiguration subtitleConfig = subtitleOptions ??
+        StatusAlertTextConfiguration(
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            fontFamily: 'SFNS',
+          ),
+        );
 
     StatusAlertManager.createView(
       context: context,
       dismissOnBackgroundTap: dismissOnBackgroundTap,
+      onComplete: onComplete,
       child: StatusAlertBaseWidget(
         title: title,
         margin: margin,
@@ -54,7 +56,10 @@ class StatusAlert {
         maxWidth: maxWidth,
         borderRadius: borderRadius,
         titleOptions: titleConfig,
-        onHide: StatusAlertManager.dismiss,
+        onHide: () {
+          StatusAlertManager.dismiss();
+          onComplete?.call();
+        },
         configuration: configuration,
         subtitleOptions: subtitleConfig,
         backgroundColor: backgroundColor,
@@ -64,5 +69,5 @@ class StatusAlert {
 
   static void hide() => StatusAlertManager.dismiss();
 
-  static get isVisible => StatusAlertManager.isVisible;
+  static bool get isVisible => StatusAlertManager.isVisible;
 }
