@@ -240,15 +240,11 @@ void main() {
 
       await tester.pumpWidget(
         MaterialApp(
-          home: Stack(
-            children: [
-              ElevatedButton(
-                onPressed: () => buttonTapped = true,
-                child: const Text('Tap me'),
-              ),
-              Builder(
-                builder: (context) {
-                  return ElevatedButton(
+          home: Scaffold(
+            body: Column(
+              children: [
+                Builder(
+                  builder: (context) => ElevatedButton(
                     onPressed: () {
                       StatusAlert.show(
                         context,
@@ -258,10 +254,14 @@ void main() {
                       );
                     },
                     child: const Text('Show Alert'),
-                  );
-                },
-              ),
-            ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () => buttonTapped = true,
+                  child: const Text('Tap me'),
+                ),
+              ],
+            ),
           ),
         ),
       );
