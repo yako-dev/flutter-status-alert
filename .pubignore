@@ -1,3 +1,6 @@
+# pub ignores .gitignore in a directory that has a .pubignore, so the rules below
+# start as a copy of .gitignore. Keep them in sync.
+
 # Miscellaneous
 *.class
 *.lock
@@ -105,3 +108,17 @@ migrate_working_dir/
 *.js_
 *.js.deps
 *.js.map
+
+# Not part of the published package
+AGENTS.md
+CLAUDE.md
+PLAN.md
+/coverage/
+/example/coverage/
+/example/ios/Flutter/ephemeral/
+.history/
+.idea/
+
+# README loads these from GitHub URLs. The font in assets/fonts/ is used by lib/.
+/assets/*.gif
+/assets/status_alert_logo.png

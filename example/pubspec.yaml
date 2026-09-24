@@ -1,5 +1,6 @@
 name: example
-description: A new Flutter project.
+description: Example app for the status_alert package.
+publish_to: none
 version: 1.0.1+2
 
 environment:
@@ -15,9 +16,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/

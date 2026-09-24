@@ -13,7 +13,7 @@ Display Apple system-like self-hiding status alerts. Well suited for notifying u
 
 ```yaml
 dependencies:
-  status_alert: ^2.0.0
+  status_alert: ^2.1.0
 ```
 
 ```dart
@@ -48,8 +48,8 @@ StatusAlert.show(
 | `margin` | `EdgeInsets` | `all(40)` | Outer spacing |
 | `padding` | `EdgeInsets` | `all(30)` | Inner spacing |
 | `borderRadius` | `BorderRadius` | `circular(10)` | Corner radius |
-| `dismissOnBackgroundTap` | `bool` | `false` | Dismiss when background is tapped |
-| `onComplete` | `VoidCallback?` | `null` | Called after dismiss animation ends |
+| `dismissOnBackgroundTap` | `bool` | `false` | Dismiss (and call `onComplete`) when the background is tapped |
+| `onComplete` | `VoidCallback?` | `null` | Called after the alert is dismissed |
 | `titleOptions` | `StatusAlertTextConfiguration?` | `null` | Title text styling |
 | `subtitleOptions` | `StatusAlertTextConfiguration?` | `null` | Subtitle text styling |
 
@@ -71,10 +71,12 @@ StatusAlert.show(
 
 ### Custom Widget (e.g. Rive animation)
 
+The widget becomes the whole content of the alert, so `title` and `subtitle`
+are not shown. Put any text inside your widget.
+
 ```dart
 StatusAlert.show(
   context,
-  title: 'Loading',
   configuration: WidgetConfiguration(
     widget: RiveAnimation.asset('assets/animation.riv'),
   ),
@@ -87,16 +89,21 @@ StatusAlert.show(
 // Show
 StatusAlert.show(context, title: 'Saved');
 
-// Hide manually
+// Hide manually (right away, without calling onComplete)
 StatusAlert.hide();
 
 // Check visibility
 if (StatusAlert.isVisible) { ... }
 ```
 
+Only one alert is shown at a time: calling `show()` while an alert is visible
+does nothing.
+
 ## `onComplete` Callback
 
-Called after the alert finishes its dismiss animation:
+Called after the alert finishes its dismiss animation, or right after a
+background tap when `dismissOnBackgroundTap` is `true`. It is not called when
+the alert is removed with `StatusAlert.hide()`:
 
 ```dart
 StatusAlert.show(

@@ -1,3 +1,33 @@
+## [2.1.0] - [September 25, 2026]
+
+### Bug Fixes
+* **Alerts no longer stop showing** after the `Overlay` of a visible alert was disposed (for
+  example when a nested `Navigator` left the tree, or between widget tests). `StatusAlert.isVisible`
+  stayed `true` forever and every later `show()` was ignored.
+* **`StatusAlert.hide()` no longer leaves a pending timer**, which made widget tests fail with
+  "A Timer is still pending even after the widget tree was disposed".
+* **`onComplete` is now called when the alert is dismissed by a background tap**
+  (`dismissOnBackgroundTap: true`). It is still not called by `StatusAlert.hide()`.
+* **An alert that finishes hiding no longer removes the alert shown after it** when `hide()` and
+  `show()` are called during its last animation frame.
+* **Alerts stay above the on-screen keyboard** instead of being drawn behind it.
+* **Content scales down instead of overflowing** when it is taller than the space left, e.g. an
+  icon, title and subtitle on a phone in landscape.
+
+### Improvements
+* The alert is a live region, so screen readers announce it when it appears.
+* Overlay entries are disposed after use.
+* Documented that `WidgetConfiguration` replaces the whole content (`title` and `subtitle` are
+  not shown) and that `show()` does nothing while an alert is visible; fixed the README example.
+* `pubspec.yaml`: added `repository`, `issue_tracker` and `topics`; `flutter_lints` 6.
+* The published package no longer contains the README images (about 2.7 MB); they load from GitHub.
+* Example app: Android, iOS and web projects regenerated (the Android project no longer built),
+  unused Flare assets removed, example is now analyzed in CI.
+* CI: updated actions, beta channel job, weekly run, PR title check. The publish workflow now uses
+  pub.dev automated publishing (OIDC).
+
+---
+
 ## [2.0.0] - [April 9, 2026]
 
 ### Breaking Changes
