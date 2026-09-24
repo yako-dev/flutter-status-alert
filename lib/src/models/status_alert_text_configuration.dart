@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class StatusAlertTextConfiguration {
   /// The text to display as a [InlineSpan].

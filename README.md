@@ -11,9 +11,14 @@ Display Apple system-like self-hiding status alerts. Well suited for notifying u
 
 ## Installing
 
+Requirements: Flutter 3.47+ (`material_ui`). On older Flutter, use `status_alert: ^2.1.0`.
+
+Apps not yet migrated to `material_ui` can keep `package:flutter/material.dart`; the alert then
+uses the default (light) Material theme instead of the app's theme.
+
 ```yaml
 dependencies:
-  status_alert: ^2.1.0
+  status_alert: ^3.0.0
 ```
 
 ```dart

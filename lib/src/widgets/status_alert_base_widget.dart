@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:status_alert/src/models/status_alert_media_configuration.dart';
 import 'package:status_alert/src/models/status_alert_text_configuration.dart';
 import 'package:status_alert/src/utils/colors.dart';

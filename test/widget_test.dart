@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:status_alert/src/widgets/status_alert_base_widget.dart';
 import 'package:status_alert/src/utils/status_alert_manager.dart';
 import 'package:status_alert/status_alert.dart';

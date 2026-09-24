@@ -1,3 +1,21 @@
+## [3.0.0] - [Unreleased]
+
+### Breaking Changes
+* **Migrated to `package:material_ui`** — Flutter 3.47 moved Material out of the SDK into the
+  `material_ui` package. In apps that use `material_ui`, the alert now picks up the app's Material
+  theme without `MaterialUiCompatibilityBridge`. Apps still on `package:flutter/material.dart` keep
+  working, but these theme-dependent defaults come from the default Material theme until they
+  migrate:
+  * **Dark/light detection** (`Theme.of(context).brightness`), which picks the default background,
+    icon, title and subtitle colors: the alert always uses its light style.
+  * **Default text style** that the alert's `Material` provides (the theme's `bodyMedium`), which
+    fills in whatever `titleOptions` / `subtitleOptions` styles don't set.
+* **Minimum SDK raised to Dart 3.13.0 / Flutter 3.47.0.** Apps on older Flutter keep resolving
+  `status_alert` 2.x (2.1.0). This also fixes the old floor: 2.x allowed Dart 3.0, but
+  `StatusAlertTextConfiguration.textScaler` uses `TextScaler`, which needs Flutter 3.16+.
+
+---
+
 ## [2.1.0] - [September 25, 2026]
 
 ### Bug Fixes

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:status_alert/src/models/status_alert_media_configuration.dart';
 import 'package:status_alert/src/models/status_alert_text_configuration.dart';
 import 'package:status_alert/src/utils/status_alert_manager.dart';
