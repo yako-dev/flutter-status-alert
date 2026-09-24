@@ -1,33 +1,58 @@
+# Automated publishing: https://dart.dev/tools/pub/automated-publishing
+# Needs, on pub.dev (Admin tab): automated publishing enabled for this repository
+# with tag pattern `v{{version}}` (optionally require the `pub.dev` environment).
+# GitHub creates the `pub.dev` environment on the first run. Release by pushing a
+# tag that matches the pubspec version, e.g. `git tag v2.1.0 && git push origin v2.1.0`.
 name: Publish to pub.dev
 
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+' # tag pattern on pub.dev: 'v{{version}}'
 
 jobs:
-  publish:
-    name: Publish
+  test:
+    name: Test & Analyze
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # Required for OIDC publishing
-
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
           channel: stable
 
       - name: Install dependencies
         run: flutter pub get
 
       - name: Analyze
-        run: flutter analyze --fatal-infos
+        run: flutter analyze lib/ test/
 
-      - name: Run tests
-        run: flutter test
+      - name: Test
+        run: flutter test --test-randomize-ordering-seed random
 
-      - name: Publish to pub.dev
-        run: dart pub publish --force
+  publish:
+    # Separate job so the short-lived OIDC token is created right before publishing.
+    name: Publish
+    needs: test
+    runs-on: ubuntu-latest
+    environment: pub.dev
+    permissions:
+      contents: read
+      id-token: write # Required for authentication using OIDC
+    steps:
+      - uses: actions/checkout@v5
+
+      # Creates the GitHub-signed OIDC token and registers it with pub for pub.dev.
+      - uses: dart-lang/setup-dart@v1
+
+      # Flutter's `dart` shadows the one from setup-dart; publishing a Flutter
+      # package needs the Flutter SDK.
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Publish
+        run: flutter pub publish --force
