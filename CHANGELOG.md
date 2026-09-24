@@ -1,4 +1,4 @@
-## [2.1.0] - [Unreleased]
+## [2.1.0] - [September 25, 2026]
 
 ### Bug Fixes
 * **Alerts no longer stop showing** after the `Overlay` of a visible alert was disposed (for
