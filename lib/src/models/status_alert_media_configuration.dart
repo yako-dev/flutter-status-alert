@@ -56,7 +56,5 @@ class WidgetConfiguration extends PopupMediaConfiguration {
   ///
   final Widget widget;
 
-  const WidgetConfiguration({
-    required this.widget,
-  });
+  const WidgetConfiguration({required this.widget});
 }

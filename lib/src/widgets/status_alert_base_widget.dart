@@ -133,8 +133,8 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
   Widget _buildContent() {
     double screenWidth =
         MediaQuery.of(context).orientation == Orientation.portrait
-            ? MediaQuery.of(context).size.width
-            : MediaQuery.of(context).size.height;
+        ? MediaQuery.of(context).size.width
+        : MediaQuery.of(context).size.height;
 
     if (widget.maxWidth != null && screenWidth > widget.maxWidth! / 0.72) {
       screenWidth = widget.maxWidth! / 0.72;
@@ -148,76 +148,80 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
     } else {
       if (widget.configuration is IconConfiguration) {
         final config = widget.configuration as IconConfiguration;
-        content.add(Padding(
-          padding: config.margin,
-          child: Icon(
-            config.icon,
-            key: config.key,
-            size: config.size ?? screenWidth * 0.35,
-            color: config.color ?? _themeColor,
-            semanticLabel: config.semanticLabel,
-            textDirection: config.textDirection,
+        content.add(
+          Padding(
+            padding: config.margin,
+            child: Icon(
+              config.icon,
+              key: config.key,
+              size: config.size ?? screenWidth * 0.35,
+              color: config.color ?? _themeColor,
+              semanticLabel: config.semanticLabel,
+              textDirection: config.textDirection,
+            ),
           ),
-        ));
+        );
       }
 
       if (widget.title != null) {
-        content.add(Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text(
-            widget.title!,
-            key: widget.titleOptions!.key,
-            style: widget.titleOptions!.style.copyWith(
-              color: widget.titleOptions!.style.color ?? _themeColor,
+        content.add(
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: Text(
+              widget.title!,
+              key: widget.titleOptions!.key,
+              style: widget.titleOptions!.style.copyWith(
+                color: widget.titleOptions!.style.color ?? _themeColor,
+              ),
+              locale: widget.titleOptions!.locale,
+              softWrap: widget.titleOptions!.softWrap,
+              maxLines: widget.titleOptions!.maxLines,
+              overflow: widget.titleOptions!.overflow,
+              textAlign: widget.titleOptions!.textAlign,
+              strutStyle: widget.titleOptions!.strutStyle,
+              textDirection: widget.titleOptions!.textDirection,
+              textWidthBasis: widget.titleOptions!.textWidthBasis,
+              semanticsLabel: widget.titleOptions!.semanticsLabel,
+              textScaler: widget.titleOptions!.textScaler,
             ),
-            locale: widget.titleOptions!.locale,
-            softWrap: widget.titleOptions!.softWrap,
-            maxLines: widget.titleOptions!.maxLines,
-            overflow: widget.titleOptions!.overflow,
-            textAlign: widget.titleOptions!.textAlign,
-            strutStyle: widget.titleOptions!.strutStyle,
-            textDirection: widget.titleOptions!.textDirection,
-            textWidthBasis: widget.titleOptions!.textWidthBasis,
-            semanticsLabel: widget.titleOptions!.semanticsLabel,
-            textScaler: widget.titleOptions!.textScaler,
           ),
-        ));
+        );
       }
 
       if (widget.subtitle != null) {
-        content.add(Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text(
-            widget.subtitle!,
-            key: widget.subtitleOptions!.key,
-            style: widget.subtitleOptions!.style.copyWith(
-              color: widget.subtitleOptions!.style.color ??
-                  (Theme.of(context).brightness == Brightness.light
-                      ? lightAccent
-                      : darkAccent),
+        content.add(
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: Text(
+              widget.subtitle!,
+              key: widget.subtitleOptions!.key,
+              style: widget.subtitleOptions!.style.copyWith(
+                color:
+                    widget.subtitleOptions!.style.color ??
+                    (Theme.of(context).brightness == Brightness.light
+                        ? lightAccent
+                        : darkAccent),
+              ),
+              locale: widget.subtitleOptions!.locale,
+              softWrap: widget.subtitleOptions!.softWrap,
+              maxLines: widget.subtitleOptions!.maxLines,
+              overflow: widget.subtitleOptions!.overflow,
+              textAlign: widget.subtitleOptions!.textAlign,
+              strutStyle: widget.subtitleOptions!.strutStyle,
+              textDirection: widget.subtitleOptions!.textDirection,
+              textWidthBasis: widget.subtitleOptions!.textWidthBasis,
+              semanticsLabel: widget.subtitleOptions!.semanticsLabel,
+              textScaler: widget.subtitleOptions!.textScaler,
             ),
-            locale: widget.subtitleOptions!.locale,
-            softWrap: widget.subtitleOptions!.softWrap,
-            maxLines: widget.subtitleOptions!.maxLines,
-            overflow: widget.subtitleOptions!.overflow,
-            textAlign: widget.subtitleOptions!.textAlign,
-            strutStyle: widget.subtitleOptions!.strutStyle,
-            textDirection: widget.subtitleOptions!.textDirection,
-            textWidthBasis: widget.subtitleOptions!.textWidthBasis,
-            semanticsLabel: widget.subtitleOptions!.semanticsLabel,
-            textScaler: widget.subtitleOptions!.textScaler,
           ),
-        ));
+        );
       }
     }
 
     final double blurSigma = widget.blurPower ?? 2.0;
 
     return BackdropFilter(
-      filter: ImageFilter.blur(
-        sigmaX: blurSigma,
-        sigmaY: blurSigma,
-      ),
+      filter: ImageFilter.blur(sigmaX: blurSigma, sigmaY: blurSigma),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           minWidth: screenWidth * 0.72,
@@ -226,7 +230,8 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: widget.backgroundColor ??
+            color:
+                widget.backgroundColor ??
                 (Theme.of(context).brightness == Brightness.dark
                     ? darkBackground
                     : lightBackground),

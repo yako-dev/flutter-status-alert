@@ -35,8 +35,9 @@ class StatusAlertScreen extends StatelessWidget {
                   maxWidth: 260,
                   title: 'Loved',
                   subtitle: "We'll recommend more like this For You.",
-                  configuration:
-                      const IconConfiguration(icon: Icons.favorite_border),
+                  configuration: const IconConfiguration(
+                    icon: Icons.favorite_border,
+                  ),
                 );
               },
             ),

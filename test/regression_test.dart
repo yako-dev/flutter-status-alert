@@ -52,45 +52,51 @@ class _NestedNavigatorPageState extends State<_NestedNavigatorPage> {
 
 void main() {
   testWidgets(
-      'a new alert shows after the overlay of the previous one was disposed',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(home: _NestedNavigatorPage()));
-    final _NestedNavigatorPageState page =
-        tester.state(find.byType(_NestedNavigatorPage));
+    'a new alert shows after the overlay of the previous one was disposed',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(const MaterialApp(home: _NestedNavigatorPage()));
+      final _NestedNavigatorPageState page = tester.state(
+        find.byType(_NestedNavigatorPage),
+      );
 
+      StatusAlert.show(
+        page.nestedContext,
+        title: 'First',
+        duration: const Duration(seconds: 5),
+      );
+      await tester.pump();
+      expect(find.text('First'), findsOneWidget);
+
+      // Removing the nested Navigator disposes its Overlay and the alert in it.
+      page.removeNestedNavigator();
+      await tester.pump();
+      expect(find.text('First'), findsNothing);
+      expect(StatusAlert.isVisible, isFalse);
+
+      StatusAlert.show(
+        page.context,
+        title: 'Second',
+        duration: const Duration(milliseconds: 100),
+      );
+      await tester.pump();
+      expect(find.text('Second'), findsOneWidget);
+      expect(StatusAlert.isVisible, isTrue);
+
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+      expect(StatusAlert.isVisible, isFalse);
+    },
+  );
+
+  testWidgets('hide() does not leave a pending timer behind', (
+    WidgetTester tester,
+  ) async {
+    final BuildContext context = await _pumpApp(tester);
     StatusAlert.show(
-      page.nestedContext,
-      title: 'First',
+      context,
+      title: 'Alert',
       duration: const Duration(seconds: 5),
     );
-    await tester.pump();
-    expect(find.text('First'), findsOneWidget);
-
-    // Removing the nested Navigator disposes its Overlay and the alert in it.
-    page.removeNestedNavigator();
-    await tester.pump();
-    expect(find.text('First'), findsNothing);
-    expect(StatusAlert.isVisible, isFalse);
-
-    StatusAlert.show(
-      page.context,
-      title: 'Second',
-      duration: const Duration(milliseconds: 100),
-    );
-    await tester.pump();
-    expect(find.text('Second'), findsOneWidget);
-    expect(StatusAlert.isVisible, isTrue);
-
-    await tester.pump(const Duration(seconds: 1));
-    await tester.pumpAndSettle();
-    expect(StatusAlert.isVisible, isFalse);
-  });
-
-  testWidgets('hide() does not leave a pending timer behind',
-      (WidgetTester tester) async {
-    final BuildContext context = await _pumpApp(tester);
-    StatusAlert.show(context,
-        title: 'Alert', duration: const Duration(seconds: 5));
     await tester.pump();
     // The fade-in is done, so the alert is waiting for `duration`.
     await tester.pump(const Duration(milliseconds: 300));
@@ -101,29 +107,31 @@ void main() {
     // The test framework fails the test if a Timer is still pending here.
   });
 
-  testWidgets('a background tap dismisses the alert and calls onComplete once',
-      (WidgetTester tester) async {
-    final BuildContext context = await _pumpApp(tester);
-    int completed = 0;
-    StatusAlert.show(
-      context,
-      title: 'Alert',
-      dismissOnBackgroundTap: true,
-      duration: const Duration(seconds: 5),
-      onComplete: () => completed++,
-    );
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
+  testWidgets(
+    'a background tap dismisses the alert and calls onComplete once',
+    (WidgetTester tester) async {
+      final BuildContext context = await _pumpApp(tester);
+      int completed = 0;
+      StatusAlert.show(
+        context,
+        title: 'Alert',
+        dismissOnBackgroundTap: true,
+        duration: const Duration(seconds: 5),
+        onComplete: () => completed++,
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
 
-    await tester.tapAt(const Offset(5, 5));
-    await tester.pump();
-    expect(StatusAlert.isVisible, isFalse);
-    expect(find.text('Alert'), findsNothing);
-    expect(completed, 1);
+      await tester.tapAt(const Offset(5, 5));
+      await tester.pump();
+      expect(StatusAlert.isVisible, isFalse);
+      expect(find.text('Alert'), findsNothing);
+      expect(completed, 1);
 
-    await tester.pump(const Duration(seconds: 6));
-    expect(completed, 1);
-  });
+      await tester.pump(const Duration(seconds: 6));
+      expect(completed, 1);
+    },
+  );
 
   testWidgets('hide() does not call onComplete', (WidgetTester tester) async {
     final BuildContext context = await _pumpApp(tester);
@@ -141,40 +149,42 @@ void main() {
   });
 
   testWidgets(
-      'the end of a hidden alert does not dismiss the alert shown after it',
-      (WidgetTester tester) async {
-    final BuildContext context = await _pumpApp(tester);
-    int firstCompleted = 0;
-    StatusAlert.show(
-      context,
-      title: 'First',
-      duration: const Duration(milliseconds: 100),
-      onComplete: () => firstCompleted++,
-    );
-    await tester.pump(); // fade-in starts
-    await tester.pump(const Duration(milliseconds: 250)); // fade-in done
-    await tester.pump(const Duration(milliseconds: 100)); // fade-out starts
-    await tester.pump(const Duration(milliseconds: 150)); // fade-out 3/4 done
+    'the end of a hidden alert does not dismiss the alert shown after it',
+    (WidgetTester tester) async {
+      final BuildContext context = await _pumpApp(tester);
+      int firstCompleted = 0;
+      StatusAlert.show(
+        context,
+        title: 'First',
+        duration: const Duration(milliseconds: 100),
+        onComplete: () => firstCompleted++,
+      );
+      await tester.pump(); // fade-in starts
+      await tester.pump(const Duration(milliseconds: 250)); // fade-in done
+      await tester.pump(const Duration(milliseconds: 100)); // fade-out starts
+      await tester.pump(const Duration(milliseconds: 150)); // fade-out 3/4 done
 
-    // Replace the alert in the frame where its fade-out finishes.
-    StatusAlert.hide();
-    StatusAlert.show(
-      context,
-      title: 'Second',
-      duration: const Duration(seconds: 5),
-    );
-    await tester.pump(const Duration(milliseconds: 100));
+      // Replace the alert in the frame where its fade-out finishes.
+      StatusAlert.hide();
+      StatusAlert.show(
+        context,
+        title: 'Second',
+        duration: const Duration(seconds: 5),
+      );
+      await tester.pump(const Duration(milliseconds: 100));
 
-    expect(find.text('Second'), findsOneWidget);
-    expect(StatusAlert.isVisible, isTrue);
-    expect(firstCompleted, 0);
+      expect(find.text('Second'), findsOneWidget);
+      expect(StatusAlert.isVisible, isTrue);
+      expect(firstCompleted, 0);
 
-    StatusAlert.hide();
-    await tester.pump();
-  });
+      StatusAlert.hide();
+      await tester.pump();
+    },
+  );
 
-  testWidgets('a bottom alert stays above the keyboard',
-      (WidgetTester tester) async {
+  testWidgets('a bottom alert stays above the keyboard', (
+    WidgetTester tester,
+  ) async {
     tester.view.physicalSize = const Size(1170, 2532);
     tester.view.devicePixelRatio = 3;
     tester.view.viewInsets = const FakeViewPadding(bottom: 900);
@@ -197,8 +207,9 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   });
 
-  testWidgets('the alert is a live region for screen readers',
-      (WidgetTester tester) async {
+  testWidgets('the alert is a live region for screen readers', (
+    WidgetTester tester,
+  ) async {
     final SemanticsHandle semantics = tester.ensureSemantics();
     final BuildContext context = await _pumpApp(tester);
     StatusAlert.show(
@@ -209,9 +220,11 @@ void main() {
     await tester.pump();
 
     bool isLiveRegion = false;
-    for (SemanticsNode? node = tester.getSemantics(find.text('Saved'));
-        node != null;
-        node = node.parent) {
+    for (
+      SemanticsNode? node = tester.getSemantics(find.text('Saved'));
+      node != null;
+      node = node.parent
+    ) {
       if (isSemantics(isLiveRegion: true).matches(node, {})) {
         isLiveRegion = true;
       }
@@ -222,8 +235,9 @@ void main() {
     semantics.dispose();
   });
 
-  testWidgets('content scales down instead of overflowing in phone landscape',
-      (WidgetTester tester) async {
+  testWidgets('content scales down instead of overflowing in phone landscape', (
+    WidgetTester tester,
+  ) async {
     tester.view.physicalSize = const Size(2532, 1170);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);

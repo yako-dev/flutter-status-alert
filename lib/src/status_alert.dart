@@ -36,7 +36,8 @@ class StatusAlert {
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     VoidCallback? onComplete,
   }) {
-    StatusAlertTextConfiguration titleConfig = titleOptions ??
+    StatusAlertTextConfiguration titleConfig =
+        titleOptions ??
         StatusAlertTextConfiguration(
           style: const TextStyle(
             fontSize: 23,
@@ -45,7 +46,8 @@ class StatusAlert {
           ),
         );
 
-    StatusAlertTextConfiguration subtitleConfig = subtitleOptions ??
+    StatusAlertTextConfiguration subtitleConfig =
+        subtitleOptions ??
         StatusAlertTextConfiguration(
           style: const TextStyle(
             fontSize: 16,
