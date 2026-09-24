@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
 
   final Tween<double> _scaleTween = Tween<double>(begin: 0.9, end: 1.0);
   final Tween<double> _fadeTween = Tween<double>(begin: 0.0, end: 1.0);
+  Timer? _hideTimer;
 
   @override
   void initState() {
@@ -69,7 +71,11 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
     if (!mounted) return;
     await _animationController.forward();
     if (!mounted) return;
-    await Future.delayed(widget.duration!);
+    // A Timer (not Future.delayed) so that dispose() can cancel it.
+    _hideTimer = Timer(widget.duration!, _hide);
+  }
+
+  Future<void> _hide() async {
     if (!mounted) return;
     await _animationController.reverse();
     if (mounted) {
@@ -79,21 +85,31 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
 
   @override
   void dispose() {
+    _hideTimer?.cancel();
     _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: IgnorePointer(
-        child: Material(
-          color: Colors.transparent,
-          child: Align(
-            alignment: widget.alignment,
-            child: Padding(
-              padding: widget.margin,
-              child: _buildBody(),
+    return Padding(
+      // Keeps the alert above the on-screen keyboard.
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+      child: SafeArea(
+        child: IgnorePointer(
+          child: Material(
+            color: Colors.transparent,
+            child: Align(
+              alignment: widget.alignment,
+              child: Padding(
+                padding: widget.margin,
+                // Lets screen readers announce the alert when it appears.
+                child: Semantics(
+                  container: true,
+                  liveRegion: true,
+                  child: _buildBody(),
+                ),
+              ),
             ),
           ),
         ),
@@ -218,10 +234,22 @@ class _StatusAlertBaseWidgetState extends State<StatusAlertBaseWidget>
           ),
           child: Padding(
             padding: widget.padding,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: content,
+            // Scales the content down when it is taller than the space left
+            // (e.g. a phone in landscape) instead of overflowing.
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: SizedBox(
+                    width: constraints.maxWidth,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: content,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),

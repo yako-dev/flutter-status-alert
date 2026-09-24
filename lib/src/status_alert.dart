@@ -4,7 +4,20 @@ import 'package:status_alert/src/models/status_alert_text_configuration.dart';
 import 'package:status_alert/src/utils/status_alert_manager.dart';
 import 'package:status_alert/src/widgets/status_alert_base_widget.dart';
 
+/// Shows Apple-style, self-hiding status alerts.
 class StatusAlert {
+  /// Shows a status alert in the closest [Overlay] of [context].
+  ///
+  /// The alert fades in, stays for [duration], fades out and then calls
+  /// [onComplete]. With [dismissOnBackgroundTap], a tap anywhere outside the
+  /// alert removes it right away and also calls [onComplete]. Otherwise the
+  /// alert ignores touches, so the widgets below stay usable.
+  ///
+  /// Only one alert is shown at a time: while one is visible, further calls
+  /// are ignored (and their [onComplete] is never called).
+  ///
+  /// With a [WidgetConfiguration], the custom widget is the whole content of
+  /// the alert: [title] and [subtitle] are not shown.
   static void show(
     BuildContext context, {
     String? title,
@@ -44,7 +57,8 @@ class StatusAlert {
     StatusAlertManager.createView(
       context: context,
       dismissOnBackgroundTap: dismissOnBackgroundTap,
-      child: StatusAlertBaseWidget(
+      onComplete: onComplete,
+      builder: (VoidCallback onHide) => StatusAlertBaseWidget(
         title: title,
         margin: margin,
         padding: padding,
@@ -55,10 +69,7 @@ class StatusAlert {
         maxWidth: maxWidth,
         borderRadius: borderRadius,
         titleOptions: titleConfig,
-        onHide: () {
-          StatusAlertManager.dismiss();
-          onComplete?.call();
-        },
+        onHide: onHide,
         configuration: configuration,
         subtitleOptions: subtitleConfig,
         backgroundColor: backgroundColor,
@@ -66,7 +77,9 @@ class StatusAlert {
     );
   }
 
+  /// Removes the visible alert right away, without calling its `onComplete`.
   static void hide() => StatusAlertManager.dismiss();
 
+  /// Whether an alert is currently visible.
   static bool get isVisible => StatusAlertManager.isVisible;
 }

@@ -44,6 +44,9 @@ class ImageConfiguration extends PopupMediaConfiguration {
   const ImageConfiguration();
 }
 
+/// Shows a custom [widget] as the whole content of the alert.
+///
+/// The `title` and `subtitle` passed to `StatusAlert.show` are not shown.
 @immutable
 class WidgetConfiguration extends PopupMediaConfiguration {
   /// The widget to be displayed.
