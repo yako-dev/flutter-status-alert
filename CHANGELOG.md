@@ -1,4 +1,4 @@
-## [3.0.0] - [Unreleased]
+## [3.0.0] - [September 25, 2026]
 
 ### Breaking Changes
 * **Migrated to `package:material_ui`** — Flutter 3.47 moved Material out of the SDK into the
