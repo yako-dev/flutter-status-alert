@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:status_alert/src/models/status_alert_media_configuration.dart';
 import 'package:status_alert/src/models/status_alert_text_configuration.dart';
 import 'package:status_alert/src/utils/status_alert_manager.dart';
@@ -36,7 +36,8 @@ class StatusAlert {
     BorderRadius borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     VoidCallback? onComplete,
   }) {
-    StatusAlertTextConfiguration titleConfig = titleOptions ??
+    StatusAlertTextConfiguration titleConfig =
+        titleOptions ??
         StatusAlertTextConfiguration(
           style: const TextStyle(
             fontSize: 23,
@@ -45,7 +46,8 @@ class StatusAlert {
           ),
         );
 
-    StatusAlertTextConfiguration subtitleConfig = subtitleOptions ??
+    StatusAlertTextConfiguration subtitleConfig =
+        subtitleOptions ??
         StatusAlertTextConfiguration(
           style: const TextStyle(
             fontSize: 16,

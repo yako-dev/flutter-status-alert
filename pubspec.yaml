@@ -1,6 +1,6 @@
 name: status_alert
 description: Display Apple system-like self-hiding status alerts. It is well suited for notifying user without interrupting user flow.
-version: 2.1.0
+version: 3.0.0
 repository: https://github.com/yako-dev/flutter-status-alert
 issue_tracker: https://github.com/yako-dev/flutter-status-alert/issues
 topics:
@@ -10,11 +10,13 @@ topics:
   - toast
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: '>=3.47.0'
 
 dependencies:
   flutter:
     sdk: flutter
+  material_ui: ^1.4.0
 
 dev_dependencies:
   flutter_test:

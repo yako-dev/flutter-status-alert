@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Keeps track of the single status alert that can be visible at a time.
 class StatusAlertManager {

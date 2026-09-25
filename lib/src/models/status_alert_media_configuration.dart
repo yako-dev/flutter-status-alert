@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 @immutable
 abstract class PopupMediaConfiguration {
@@ -56,7 +56,5 @@ class WidgetConfiguration extends PopupMediaConfiguration {
   ///
   final Widget widget;
 
-  const WidgetConfiguration({
-    required this.widget,
-  });
+  const WidgetConfiguration({required this.widget});
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:status_alert/status_alert.dart';
 
 class StatusAlertScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class StatusAlertScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Status Alert')),
       body: ListView.separated(
         itemCount: 20,
-        separatorBuilder: (_, __) => const Divider(),
+        separatorBuilder: (_, _) => const Divider(),
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             leading: ClipRRect(
@@ -35,8 +35,9 @@ class StatusAlertScreen extends StatelessWidget {
                   maxWidth: 260,
                   title: 'Loved',
                   subtitle: "We'll recommend more like this For You.",
-                  configuration:
-                      const IconConfiguration(icon: Icons.favorite_border),
+                  configuration: const IconConfiguration(
+                    icon: Icons.favorite_border,
+                  ),
                 );
               },
             ),

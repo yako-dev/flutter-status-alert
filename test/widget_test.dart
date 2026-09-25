@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:status_alert/src/widgets/status_alert_base_widget.dart';
 import 'package:status_alert/src/utils/status_alert_manager.dart';
 import 'package:status_alert/status_alert.dart';
@@ -86,8 +86,9 @@ void main() {
     testWidgets('Background color matches', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(_wrap(statusAlert));
-        final widget = tester
-            .widget<StatusAlertBaseWidget>(find.byType(StatusAlertBaseWidget));
+        final widget = tester.widget<StatusAlertBaseWidget>(
+          find.byType(StatusAlertBaseWidget),
+        );
         expect(widget.backgroundColor, Colors.green);
       });
     });
@@ -102,8 +103,9 @@ void main() {
     testWidgets('Icon color matches', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(_wrap(statusAlert));
-        final iconWidget =
-            tester.widget<Icon>(find.byIcon(Icons.favorite_border));
+        final iconWidget = tester.widget<Icon>(
+          find.byIcon(Icons.favorite_border),
+        );
         expect(iconWidget.color, Colors.blue);
       });
     });
@@ -139,8 +141,9 @@ void main() {
       StatusAlertManager.dismiss();
     });
 
-    testWidgets('show() inserts overlay and isVisible becomes true',
-        (tester) async {
+    testWidgets('show() inserts overlay and isVisible becomes true', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Builder(
@@ -167,8 +170,9 @@ void main() {
       expect(StatusAlert.isVisible, isTrue);
     });
 
-    testWidgets('hide() removes alert and isVisible becomes false',
-        (tester) async {
+    testWidgets('hide() removes alert and isVisible becomes false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Builder(
@@ -198,8 +202,9 @@ void main() {
       expect(StatusAlert.isVisible, isFalse);
     });
 
-    testWidgets('onComplete callback is invoked when alert finishes',
-        (tester) async {
+    testWidgets('onComplete callback is invoked when alert finishes', (
+      tester,
+    ) async {
       bool completed = false;
 
       await tester.pumpWidget(
@@ -234,8 +239,9 @@ void main() {
       expect(completed, isTrue);
     });
 
-    testWidgets('Underlying widgets remain tappable while alert is visible',
-        (tester) async {
+    testWidgets('Underlying widgets remain tappable while alert is visible', (
+      tester,
+    ) async {
       bool buttonTapped = false;
 
       await tester.pumpWidget(

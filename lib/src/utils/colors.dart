@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 const Color darkAccent = Color.fromRGBO(160, 160, 160, 1);
 const Color lightAccent = Color.fromRGBO(90, 90, 90, 1);
